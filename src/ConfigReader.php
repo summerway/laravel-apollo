@@ -1,6 +1,6 @@
 <?php
 
-namespace Lackhurt\Apollo;
+namespace MapleSnow\Apollo;
 
 
 class ConfigReader

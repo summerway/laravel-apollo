@@ -1,30 +1,32 @@
 {
-  "name": "lackhurt/laravel-apollo",
+  "name": "maplesnow/laravel-apollo",
   "description": "Apollo agent for laravel.",
   "license": "MIT",
   "authors": [
     {
-      "name": "lackhurt",
-      "email": "pangjn@yeah.net"
+      "name": "mapleSnow",
+      "email": "summerweiace@163.com"
     }
   ],
   "require": {
-    "lackhurt/apollo-client": "^0.1.3",
     "illuminate/support": "5.1.x|5.2.x|5.3.x|5.4.x|5.5.x|5.6.x|5.7.x|5.8.x",
-    "illuminate/console": "5.1.x|5.2.x|5.3.x|5.4.x|5.5.x|5.6.x|5.7.x|5.8.x"
+    "illuminate/console": "5.1.x|5.2.x|5.3.x|5.4.x|5.5.x|5.6.x|5.7.x|5.8.x",
+    "illuminate/translation": "5.4.*|5.5.*|5.6.*|5.7.*",
+    "illuminate/filesystem": "5.4.*|5.5.*|5.6.*|5.7.*",
+    "symfony/yaml": "3.*"
   },
   "autoload": {
     "psr-4": {
-      "Lackhurt\\Apollo\\": "src/"
+      "MapleSnow\\Apollo\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Lackhurt\\Apollo\\Providers\\ApolloServiceProvider"
+        "MapleSnow\\Apollo\\Providers\\ApolloServiceProvider"
       ],
       "aliases": {
-        "Apollo": "Lackhurt\\Apollo\\ApolloFacade"
+        "Apollo": "MapleSnow\\Apollo\\ApolloFacade"
       }
     }
   }

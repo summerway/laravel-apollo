@@ -1,27 +1,26 @@
 # Laravel Apollo integration.
 
-## Installation
-Install the package via composer
+## 安装
 ```bash
-composer require lackhurt/laravel-apollo
+composer require maplesnow/laravel-apollo
 ```
 
-Add serviceProvider
+添加 serviceProvider
 ```php
-Lackhurt\Apollo\Providers\ApolloServiceProvider::class
+MapleSnow\Apollo\Providers\ApolloServiceProvider::class
 ```
 
-Add facade
+添加 facade
 ```php
-'Apollo' => Lackhurt\Apollo\Facades\Apollo::class
+'Apollo' => MapleSnow\Apollo\Facades\Apollo::class
 ```
 
-Publish ServiceProvider
+发布 ServiceProvider
 ```php
-php artisan vendor:publish --provider="Lackhurt\Apollo\Providers\ApolloServiceProvider"
+php artisan vendor:publish --provider="MapleSnow\Apollo\Providers\ApolloServiceProvider"
 ```
 
-Edit .env
+配置`.env`参数
 ```properties
 APP_ID=your app id
 CLUSTER=default
@@ -29,9 +28,30 @@ APOLLO_NAMESPACES="application, common_ns, others"
 APOLLO_CONFIG_SERVER=http://apollometa:8090
 ```
 
-Start agent as a daemon
+开启**Apollo**agent
 ```bash
 php artisan apollo.start-agent
+```
+
+## 发布配置
+在apollo配置中心修改配置，点击发布,项目内的.env文件将被重写。
+
+## 发布语言包
+1. 在apollo配置中心添加前缀为`Lang`的namespace，默认是`en` ,若需其他语言需加上后缀,[多国语言参考](https://github.com/caouecs/Laravel-lang/blob/master/Source.md)  
+2. 使用`yaml`格式编写语言包
+    ```yaml
+    # 用户自定义
+    message:
+        hello: '你好 :name'
+        
+    # Auth 认证
+    auth:
+        failed: '认证失败'
+    ```
+3. 修改完成后，点击发布
+4. 项目中的用法
+```php
+dd(trans("lang.message.hello",['name','mapleSnow']),trans("lang.auth.failed"));
 ```
 
 ## License

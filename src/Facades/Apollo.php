@@ -1,6 +1,6 @@
 <?php
 
-namespace Lackhurt\Apollo\Facades;
+namespace MapleSnow\Apollo\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

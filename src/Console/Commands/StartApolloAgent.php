@@ -1,11 +1,10 @@
 <?php
 
-namespace Lackhurt\Apollo\Console\Commands;
+namespace MapleSnow\Apollo\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
-use Lackhurt\Apollo\ConfigReader;
 use Org\Multilinguals\Apollo\Client\ApolloClient;
 
 class StartApolloAgent extends Command
@@ -15,7 +14,7 @@ class StartApolloAgent extends Command
      *
      * @var string
      */
-    protected $signature = 'apollo.start-agent {--mode=env}';
+    protected $signature = 'apollo.start-agent';
 
     /**
      * The console command description.
@@ -24,7 +23,6 @@ class StartApolloAgent extends Command
      */
     protected $description = 'Start apollo agent. ';
 
-
     /**
      * @var ApolloClient
      */
@@ -32,56 +30,55 @@ class StartApolloAgent extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @return void
+     * StartApolloAgent constructor.
+     * @throws \Exception
      */
     public function __construct()
     {
         parent::__construct();
+        $this->initApolloClient();
     }
 
-
+    /**
+     * @throws \Exception
+     */
     private function initApolloClient() {
-        if (empty(Config::get('apollo.config_server'))) {
+        $configServer = Config::get('apollo.config_server');
+        if (empty($configServer)) {
             throw new \Exception('ConfigServer must be specified!');
         }
 
-        if (empty(Config::get('apollo.app_id'))) {
+        $appId = Config::get('apollo.app_id');
+        if (empty($appId)) {
             throw new \Exception('AppId must be specified!');
         }
 
-        if (empty(Config::get('apollo.namespaces'))) {
+        $namespaces = Config::get('apollo.namespaces');
+        if (empty($namespaces)) {
             $namespaces = ['application'];
         } else {
             $namespaces = array_map(function($namespace) {
                 return trim($namespace);
-            }, Config::get('apollo.namespaces'));
+            }, $namespaces);
         }
 
-        $apolloClient = new ApolloClient(Config::get('apollo.config_server'), Config::get('apollo.app_id'), $namespaces);
-        $apolloClient->setIntervalTimeout(Config::get('apollo.timeout_interval'));
-        $apolloClient->setSaveDir(Config::get('apollo.save_dir'));
-
-        $mode = $this->option('mode');
-        if($mode == 'env') {
-            $apolloClient->setModifyEnv(true);
-        }
-
-        return $apolloClient;
+        $this->apolloClient = new ApolloClient($configServer, $appId, $namespaces);
+        $this->apolloClient->setIntervalTimeout(Config::get('apollo.timeout_interval'));
+        $this->apolloClient->setSaveDir(Config::get('apollo.save_dir'));
     }
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
+     * @return bool
      */
     public function handle()
     {
+        $res = $this->apolloClient->start();
+        if($res !== true){
+            Log::error($res);
+            return false;
+        }
 
-        $apolloClient = $this->initApolloClient();
-
-        $error = $apolloClient->start();
-        Log::error($error);
-        return false;
+        return true;
     }
 }
