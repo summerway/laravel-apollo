@@ -5,7 +5,7 @@ namespace MapleSnow\Apollo\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
-use Org\Multilinguals\Apollo\Client\ApolloClient;
+use MapleSnow\Apollo\ApolloClient;
 
 class StartApolloAgent extends Command
 {

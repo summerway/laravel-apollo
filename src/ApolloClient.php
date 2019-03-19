@@ -1,6 +1,6 @@
 <?php
 
-namespace Org\Multilinguals\Apollo\Client;
+namespace MapleSnow\Apollo;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
