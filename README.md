@@ -41,7 +41,7 @@ php artisan apollo.start-agent
 1.添加laravel支持  
 将 **app/config/app.php** 中 `Illuminate\Translation\TranslationServiceProvider` 替换成 `Kaishiyoku\Core\Translation\TranslationServiceProvider`  
 2. 在apollo配置中心添加前缀为`Lang`的namespace，默认是`en` ,若需其他语言需加上后缀,[多国语言参考](https://github.com/caouecs/Laravel-lang/blob/master/Source.md)  
-3. 使用`yaml`格式编写语言包
+3. 使用`yaml`格式编写语言包  
     ```yaml
     # 用户自定义
     message:
@@ -51,8 +51,8 @@ php artisan apollo.start-agent
     auth:
         failed: '认证失败'
     ```
-4. 修改完成后，点击发布
-5. 项目中的用法
+4. 修改完成后，点击发布  
+5. 项目中的用法  
 ```php
 dd(trans("lang.message.hello",['name','mapleSnow']),trans("lang.auth.failed"));
 ```
